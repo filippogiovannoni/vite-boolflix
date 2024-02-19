@@ -1,6 +1,14 @@
 <script>
+
+import { store } from '../src/store.js'
+
 export default {
-  name: 'App'
+  name: 'App',
+  data() {
+    return {
+      store,
+    }
+  }
 }
 </script>
 
