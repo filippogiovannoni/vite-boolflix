@@ -1,6 +1,15 @@
 <script>
+
+import { store } from '../store.js'
+
 export default {
-    name: 'AppHeader'
+    name: 'AppHeader',
+    data() {
+        return {
+            store,
+            searchBar: ''
+        }
+    }
 }
 </script>
 
@@ -17,8 +26,9 @@ export default {
                 </ul>
             </div>
             <div class="search">
-                <input type="text" name="searchBox" id="searchBox" placeholder="Digita il nome del film">
-                <button>Cerca</button>
+                <input type="text" name="searchBox" id="searchBox" placeholder="Digita il nome del film"
+                    v-model="this.searchBar">
+                <button @click="store.getMovieUrl(store.base_api_movie_url + this.searchBar)">Cerca</button>
             </div>
         </nav>
     </header>
