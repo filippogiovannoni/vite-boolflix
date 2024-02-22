@@ -10,7 +10,7 @@ export default {
         }
     },
     mounted() {
-        store.getMovieUrl(store.base_api_movie_url)
+        store.getMovieUrl(store.trending_movies_url)
     }
 }
 </script>
@@ -18,19 +18,20 @@ export default {
 <template>
     <main>
         <div class="container">
-            <div class="digit" v-if="store.searching && store.films.length === 0">
-                <span>Digita il titolo di un film in alto a destra e premi il bottone</span>
+            <div v-if="store.films.length === 0">Nessun risultato trovato</div>
+            <div class="trending" v-if="store.films.length > 0">
+                Film
             </div>
-            <div class="row" v-if="store.searching">
-                <div class="col-3" v-for=" film  in  store.films ">
+            <div class="row">
+                <div class="col-3" v-for=" film  in   store.films  ">
                     <h3>{{ film.title }}</h3>
                     <span><em>{{ film.original_title }}</em></span>
-                    <span class="d-block">{{ film.original_language }}</span>
+                    <div class="flag">
+                        <span
+                            :class="[store.flag_base + film.original_language, { 'flag-icon-gb': film.original_language === 'en' }]"></span>
+                    </div>
                     <span class="d-block">{{ film.vote_average }}</span>
                 </div>
-            </div>
-            <div v-if="!store.searching && store.films.length === 0">
-                nessun risultato
             </div>
         </div>
     </main>
@@ -38,21 +39,18 @@ export default {
 
 
 <style scoped>
-.digit {
-    display: flex;
-    height: 80vh;
-    justify-content: center;
-    align-items: center;
-
-    & span {
-        font-size: 1.5rem;
-        font-weight: bold;
-    }
+.trending {
+    padding: 1rem 0;
+    font-weight: bold;
 }
 
 .col-3 {
     height: 200px;
     text-align: center;
     border: 1px solid var(--bool-primary);
+
+    & .flag>span {
+        text-align: center;
+    }
 }
 </style>
