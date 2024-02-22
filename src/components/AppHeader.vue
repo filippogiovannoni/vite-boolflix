@@ -28,7 +28,8 @@ export default {
             <div class="search">
                 <input type="text" name="searchBox" id="searchBox" placeholder="Digita il nome del film"
                     v-model="this.searchBar">
-                <button @click="store.getMovieUrl(store.base_api_movie_url + this.searchBar)">Cerca</button>
+                <button
+                    @click="store.getMovieUrl(store.base_api_movie_url + this.searchBar); store.getMovieUrl(store.base_api_tv_url + this.searchBar)">Cerca</button>
             </div>
         </nav>
     </header>

@@ -18,19 +18,19 @@ export default {
 <template>
     <main>
         <div class="container">
-            <div v-if="store.films.length === 0">Nessun risultato trovato</div>
-            <div class="trending" v-if="store.films.length > 0">
-                Film
+            <div v-if="store.contents.length === 0">Nessun risultato trovato</div>
+            <div class="trending" v-if="store.contents.length > 0">
+                Film & Tv Series
             </div>
             <div class="row">
-                <div class="col-3" v-for=" film  in   store.films  ">
-                    <h3>{{ film.title }}</h3>
-                    <span><em>{{ film.original_title }}</em></span>
+                <div class="col-3" v-for=" content  in   store.contents  ">
+                    <h3>{{ content.title }}{{ content.name }}</h3>
+                    <span><em>{{ content.original_title }}{{ content.original_name }}</em></span>
                     <div class="flag">
                         <span
-                            :class="[store.flag_base + film.original_language, { 'flag-icon-gb': film.original_language === 'en' }]"></span>
+                            :class="[store.flag_base + content.original_language, { 'flag-icon-gb': content.original_language === 'en' }]"></span>
                     </div>
-                    <span class="d-block">{{ film.vote_average }}</span>
+                    <span class="d-block">{{ content.vote_average }}</span>
                 </div>
             </div>
         </div>
