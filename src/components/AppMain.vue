@@ -20,10 +20,16 @@ export default {
             return [store.flag_base + `${content.original_language === 'en' ? 'flag-icon-gb' : 'flag-icon-' + content.original_language}`]
         },
         getImage(content) {
-            return store.base_img_url + content.poster_path
+            return content.poster_path === null ? store.base_img_url + content.backdrop_path : store.base_img_url + content.poster_path
         },
         hideTitle(content) {
             return content.title === content.original_title ? 'd-none' : 'd-block'
+        },
+        getOverview(content) {
+            return content.overview === '' ? 'd-none' : 'd-block'
+        },
+        noImage(content) {
+            return content.poster_path === null ? 'card d-none' : 'card d-block'
         }
     }
 }
@@ -32,21 +38,22 @@ export default {
 <template>
     <main>
         <div class="container">
-            <div v-if="store.contents.length === 0">Nessun risultato trovato</div>
+            <div class="not-found" v-if="store.contents.length === 0">Nessun risultato trovato</div>
             <div class="trending" v-if="store.contents.length > 0">
                 Film & Tv Series
             </div>
             <div class="row">
                 <div class="col-3" v-for=" content  in     store.contents    ">
-                    <div class="card">
+                    <div :class="noImage(content)">
                         <div class="image">
-                            <img :src="getImage(content)" alt="">
+                            <img :src="getImage(content)" alt="content_image">
                         </div>
                         <div class="card-info">
                             <h3>Titolo: {{ content.title }}{{ content.name }}</h3>
                             <!-- <span>Titolo originale: <em>{{ content.original_title }}{{ content.original_name }}</em></span> -->
-                            <span :class="hideTitle(content)">{{ content.original_title }}{{ content.original_name }}</span>
-                            <p>Overview: {{ content.overview }}</p>
+                            <span :class="hideTitle(content)">Titolo originale: {{ content.original_title }}{{
+                                content.original_name }}</span>
+                            <p :class="getOverview(content)">Overview: {{ content.overview }}</p>
                             <div class="flag">
                                 <span>Lingua:</span><span :class="getFlag(content)"></span>
                             </div>
@@ -65,6 +72,10 @@ export default {
 
 
 <style scoped>
+main {
+    margin-top: 6rem;
+}
+
 .trending {
     padding: 1rem 0;
     font-weight: bold;
@@ -72,10 +83,11 @@ export default {
 
 .col-3 {
     text-align: center;
-    border: 1px solid var(--bool-primary);
+    /* border: 1px solid var(--bool-primary); */
 
     & .flag>span {
         text-align: center;
+
     }
 
     .image {
@@ -88,7 +100,7 @@ export default {
 }
 
 .card:hover img {
-    opacity: 0;
+    opacity: 0.2;
     transition: opacity 500ms;
 }
 
@@ -115,5 +127,14 @@ export default {
     & p {
         font-size: 14px;
     }
+}
+
+.not-found {
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bo;
 }
 </style>

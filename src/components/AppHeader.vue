@@ -16,7 +16,7 @@ export default {
 <template>
     <header>
         <nav class="container">
-            <div class="logo">
+            <div class="logo" @click="store.getMovieUrl(store.trending_movies_url)">
                 <img src="../assets/img/BOOLFLIX-removebg-preview.png" alt="">
             </div>
             <div class="features">
@@ -37,6 +37,15 @@ export default {
 
 
 <style scoped>
+header {
+    filter: drop-shadow(0 0 5px var(--bool-primary));
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+    background-color: black
+}
+
 nav {
     display: flex;
     justify-content: space-between;

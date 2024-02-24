@@ -29,6 +29,7 @@ body {
 
 [class^="col-"] {
   padding: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .col-3 {
