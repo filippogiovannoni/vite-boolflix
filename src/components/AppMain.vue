@@ -43,7 +43,7 @@ export default {
                 Film & Tv Series
             </div>
             <div class="row">
-                <div class="col-3" v-for=" content  in     store.contents    ">
+                <div class="col-sm-6 col-md-4 col-lg-3 col-12 " v-for=" content  in     store.contents    ">
                     <div :class="noImage(content)">
                         <div class="image">
                             <img :src="getImage(content)" alt="content_image">
@@ -81,7 +81,7 @@ main {
     font-weight: bold;
 }
 
-.col-3 {
+.col-12 {
     text-align: center;
     /* border: 1px solid var(--bool-primary); */
 

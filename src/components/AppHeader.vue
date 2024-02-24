@@ -1,6 +1,7 @@
 <script>
 
 import { store } from '../store.js'
+import AppLogo from './AppLogo.vue';
 
 export default {
     name: 'AppHeader',
@@ -8,17 +9,16 @@ export default {
         return {
             store,
             searchBar: ''
-        }
-    }
+        };
+    },
+    components: { AppLogo }
 }
 </script>
 
 <template>
     <header>
         <nav class="container">
-            <div class="logo" @click="store.getMovieUrl(store.trending_movies_url)">
-                <img src="../assets/img/BOOLFLIX-removebg-preview.png" alt="">
-            </div>
+            <AppLogo></AppLogo>
             <div class="features">
                 <ul>
                     <li><a class="active" href="#">Sfoglia</a></li>
@@ -51,14 +51,6 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 0;
-
-    & .logo {
-        width: 150px;
-
-        & img {
-            max-width: 100%;
-        }
-    }
 
     & ul {
         display: flex;
