@@ -1,6 +1,13 @@
 <script>
+
+import { store } from '../store';
 export default {
-    name: 'AppLogo'
+    name: 'AppLogo',
+    data() {
+        return {
+            store
+        }
+    }
 }
 </script>
 
