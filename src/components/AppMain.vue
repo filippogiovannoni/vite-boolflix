@@ -29,7 +29,7 @@ export default {
             return content.overview === '' ? 'd-none' : 'd-block'
         },
         noImage(content) {
-            return content.poster_path === null ? 'card d-none' : 'card d-block'
+            return content.poster_path === null && content.backdrop_path === null ? 'd-none' : 'd-block'
         }
     }
 }
@@ -38,28 +38,50 @@ export default {
 <template>
     <main>
         <div class="container">
-            <div class="not-found" v-if="store.contents.length === 0">Nessun risultato trovato</div>
-            <div class="trending" v-if="store.contents.length > 0">
-                Film & Tv Series
+            <div class="not-found" v-if="store.movies.length === 0 && store.tvSeries.length === 0">Nessun risultato trovato
             </div>
+            <span class="title" v-if="store.movies.length > 0">Movies</span>
             <div class="row">
-                <div class="col-sm-6 col-md-4 col-lg-3 col-12 " v-for=" content  in     store.contents    ">
-                    <div :class="noImage(content)">
+                <div class="col-sm-6 col-md-4 col-lg-3 col-12" v-bind:class="noImage(movie)"
+                    v-for=" movie  in     store.movies    ">
+                    <div class="card">
                         <div class="image">
-                            <img :src="getImage(content)" alt="content_image">
+                            <img :src="getImage(movie)" alt="movie_image">
                         </div>
                         <div class="card-info">
-                            <h3>Titolo: {{ content.title }}{{ content.name }}</h3>
-                            <!-- <span>Titolo originale: <em>{{ content.original_title }}{{ content.original_name }}</em></span> -->
-                            <span :class="hideTitle(content)">Titolo originale: {{ content.original_title }}{{
-                                content.original_name }}</span>
-                            <p :class="getOverview(content)">Overview: {{ content.overview }}</p>
+                            <h3>Titolo: {{ movie.title }}</h3>
+                            <span :class="hideTitle(movie)">Titolo originale: {{ movie.original_title }}</span>
+                            <p :class="getOverview(movie)">Overview: {{ movie.overview }}</p>
                             <div class="flag">
-                                <span>Lingua:</span><span :class="getFlag(content)"></span>
+                                <span>Lingua:</span><span :class="getFlag(movie)"></span>
                             </div>
                             <div class="rating">
                                 <span>Voto: </span><i class="fa-solid fa-star"
-                                    v-for="  star   in   starVote(content.vote_average)  " :key="star"
+                                    v-for="  star   in   starVote(movie.vote_average)  " :key="star"
+                                    style="color: #FFD43B;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span class="title" v-if="store.tvSeries.length > 0">Tv Series</span>
+            <div class="row" v-if="store.tvSeries.length > 0">
+                <div class="col-sm-6 col-md-4 col-lg-3 col-12" v-bind:class="noImage(tv)"
+                    v-for=" tv  in     store.tvSeries    ">
+                    <div class="card">
+                        <div class="image">
+                            <img :src="getImage(tv)" alt="tv_image">
+                        </div>
+                        <div class="card-info">
+                            <h3>Titolo Serie Tv: {{ tv.name }}</h3>
+                            <span :class="hideTitle(tv)">Titolo originale: {{ tv.original_name }}</span>
+                            <p :class="getOverview(tv)">Overview: {{ tv.overview }}</p>
+                            <div class="flag">
+                                <span>Lingua:</span><span :class="getFlag(tv)"></span>
+                            </div>
+                            <div class="rating">
+                                <span>Voto: </span><i class="fa-solid fa-star"
+                                    v-for="  star   in   starVote(tv.vote_average)  " :key="star"
                                     style="color: #FFD43B;"></i>
                             </div>
                         </div>
@@ -73,7 +95,7 @@ export default {
 
 <style scoped>
 main {
-    margin-top: 6rem;
+    margin-top: 7rem;
 }
 
 .trending {
@@ -136,5 +158,10 @@ main {
     align-items: center;
     font-size: 24px;
     font-weight: bo;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 </style>
