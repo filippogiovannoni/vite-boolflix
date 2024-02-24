@@ -24,5 +24,20 @@ export const store = reactive({
                 console.log(this.tvSeries);
             })
     },
+    starVote(number) {
+        return Math.round(number / 2)
+    },
+    getFlag(content) {
+        return [store.flag_base + `${content.original_language === 'en' ? 'flag-icon-gb' : 'flag-icon-' + content.original_language}`]
+    },
+    getImage(content) {
+        return content.poster_path === null ? store.base_img_url + content.backdrop_path : store.base_img_url + content.poster_path
+    },
+    hideTitle(content) {
+        return content.title === content.original_title ? 'd-none' : 'd-block'
+    },
+    getOverview(content) {
+        return content.overview === '' ? 'd-none' : 'd-block'
+    },
     flag_base: 'flag-icon '
 })

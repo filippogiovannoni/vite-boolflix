@@ -1,16 +1,16 @@
 <script>
 
-import { store } from '../store'
+import { store } from '../store';
 
 export default {
-    name: 'MovieElement',
+    name: 'TvElement',
     data() {
         return {
             store
         }
     },
     props: {
-        movie: Object
+        tv: Object
     }
 }
 </script>
@@ -18,17 +18,17 @@ export default {
 <template>
     <div class="card">
         <div class="image">
-            <img :src="store.getImage(movie)" alt="movie_image">
+            <img :src="store.getImage(tv)" alt="tv_image">
         </div>
         <div class="card-info">
-            <h3>Titolo: {{ movie.title }}</h3>
-            <span :class="store.hideTitle(movie)">Titolo originale: {{ movie.original_title }}</span>
-            <p :class="store.getOverview(movie)">Overview: {{ movie.overview }}</p>
+            <h3>Titolo Serie Tv: {{ tv.name }}</h3>
+            <span :class="store.hideTitle(tv)">Titolo originale: {{ tv.original_name }}</span>
+            <p :class="store.getOverview(tv)">Overview: {{ tv.overview }}</p>
             <div class="flag">
-                <span>Lingua:</span><span :class="store.getFlag(movie)"></span>
+                <span>Lingua:</span><span :class="store.getFlag(tv)"></span>
             </div>
             <div class="rating">
-                <span>Voto: </span><i class="fa-solid fa-star" v-for="  star   in   store.starVote(movie.vote_average)  "
+                <span>Voto: </span><i class="fa-solid fa-star" v-for="  star   in   store.starVote(tv.vote_average)  "
                     :key="star" style="color: #FFD43B;"></i>
             </div>
         </div>
