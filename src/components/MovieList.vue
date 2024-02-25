@@ -1,7 +1,7 @@
 <script>
 
 import { store } from '../store';
-import TvElement from './TvElement.vue';
+import MovieElement from './MovieElement.vue';
 
 export default {
     name: 'MovieList',
@@ -10,16 +10,15 @@ export default {
             store
         }
     },
-    components: { TvElement }
+    components: { MovieElement }
 }
 </script>
 
 <template>
-    <span class="title" v-if="store.tvSeries.length > 0">Tv Series</span>
-    <div class="row" v-if="store.tvSeries.length > 0">
-        <div class="col-sm-6 col-md-4 col-lg-3 col-12" v-bind:class="store.noImage(tv)"
-            v-for=" tv  in     store.tvSeries    ">
-            <TvElement :tv="tv"></TvElement>
+    <span class="title" v-if="store.movies.length > 0">Movies</span>
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-lg-3 col-12" v-bind:class="store.noImage(movie)" v-for=" movie  in store.movies">
+            <MovieElement :movie="movie"></MovieElement>
         </div>
     </div>
 </template>
