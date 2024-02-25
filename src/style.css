@@ -34,6 +34,7 @@ body {
 
 .col-12 {
   width: 100%;
+  text-align: center;
 }
 
 .d-block {
@@ -42,6 +43,11 @@ body {
 
 .d-none {
   display: none;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 /* Media Queries */

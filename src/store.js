@@ -39,5 +39,8 @@ export const store = reactive({
     getOverview(content) {
         return content.overview === '' ? 'd-none' : 'd-block'
     },
+    noImage(content) {
+        return content.poster_path === null && content.backdrop_path === null ? 'd-none' : 'd-block';
+    },
     flag_base: 'flag-icon '
 })
